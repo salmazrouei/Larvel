@@ -51,7 +51,7 @@
           </div>
           <div class="info">
             <a href="{{url('#')}}" class="d-block">
-              <h5>Mohamed Elhendy</h5>
+              <h5>Shaikha AlMazrouei</h5>
             </a>
           </div>
         </div>
