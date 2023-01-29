@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -7,16 +8,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/add-product', [HomeController::class, 'add_product']);
@@ -33,10 +25,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
-
-Route::middleware(['auth', 'can:is_admin'])->prefix('/admin')->group(function () {
+Route::prefix('/admin')->group(function () {
     Route::resource('', AdminController::class);
     Route::resource('products', ProductsController::class);
     Route::resource('categories', CategoriesController::class);
 });
+
+Route::get('/cart', [CartController::class, 'index']);
+Route::get('/incQuantity', [CartController::class,'incQuantity']);
+Route::get('/decQuantity', [CartController::class,'decQuantity']);
+Route::get('/removeProduct', [CartController::class,'deleteProduct']);
